@@ -1,0 +1,34 @@
+[versions]
+androidxCoreKtx = "1.9.0"
+androidxAppcompat = "1.6.1"
+material = "1.8.0"
+composeUi = "1.4.2"
+composeMaterial = "1.4.2"
+composeTooling = "1.4.2"
+navigationCompose = "2.5.3"
+hilt = "2.44"
+retrofit = "2.9.0"
+playServicesMaps = "18.0.2"
+playServicesLocation = "21.0.1"
+kotlinxCoroutines = "1.7.1"
+playServicesMapsVersion = "19.0.0"
+playServicesLocationVersion = "21.3.0"
+
+[libraries]
+androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreKtx" }
+androidxAppcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+composeUi = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi" }
+composeMaterial = { group = "androidx.compose.material", name = "material", version.ref = "composeMaterial" }
+composeTooling = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeTooling" }
+navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofitConverterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+playServicesMaps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
+playServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinxCoroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+gmsPlayServicesMaps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMapsVersion" }
+gmsPlayServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocationVersion" }
