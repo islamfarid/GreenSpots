@@ -89,6 +89,7 @@ dependencies {
 
     // Material Components for themes and UI components
     implementation("com.google.android.material:material:1.9.0")
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
@@ -100,6 +101,7 @@ dependencies {
     kaptTest("com.google.dagger:hilt-android-compiler:2.44")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
+
 }
 
 kapt {

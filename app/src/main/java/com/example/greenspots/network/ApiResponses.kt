@@ -8,10 +8,12 @@ data class PlacesResponse(
 )
 
 data class PlaceResult(
+    @SerializedName("place_id") val placeId: String,  // Use the correct placeId
     @SerializedName("name") val name: String,
     @SerializedName("geometry") val geometry: Geometry,
     @SerializedName("vicinity") val vicinity: String?
 )
+
 
 data class Geometry(
     @SerializedName("location") val location: Location

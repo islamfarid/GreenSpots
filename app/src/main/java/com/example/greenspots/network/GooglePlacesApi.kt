@@ -1,5 +1,6 @@
 package com.example.greenspots.network
 
+import com.example.greenspots.details.model.PlaceDetailsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -7,9 +8,14 @@ interface GooglePlacesApi {
 
     @GET("place/nearbysearch/json")
     suspend fun getNearbyPlaces(
-        @Query("location") location: String, // lat,lng format
-        @Query("radius") radius: Int, // Search radius in meters
-        @Query("type") type: String = "park", // Type of place to search for
-        @Query("key") apiKey: String // Your API Key
+        @Query("location") location: String,
+        @Query("radius") radius: Int,
+        @Query("key") apiKey: String
     ): PlacesResponse
+
+    @GET("place/details/json")
+    suspend fun getPlaceDetails(
+        @Query("place_id") placeId: String,  // Place ID from previous API response
+        @Query("key") apiKey: String
+    ): PlaceDetailsResponse
 }

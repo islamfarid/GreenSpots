@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
@@ -44,12 +43,11 @@ fun MapScreen(
                 snippet = place.description.orEmpty(),
                 icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
                 onClick = {
-                    // Serialize Place object to JSON
-                    val placeJson = Gson().toJson(place)
-                    navController.navigate("details/$placeJson")
+                    navController.navigate("details/${place.id}") // Pass only the placeId
                     true
                 }
             )
+
         }
     }
 }

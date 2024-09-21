@@ -16,14 +16,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.greenspots.details.DetailScreen
-import com.example.greenspots.map.model.Place
 import com.example.greenspots.map.ui.MapScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.rememberCameraPositionState
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,21 +64,18 @@ class MainActivity : ComponentActivity() {
                                         currentLocation = location
                                     )
                                 }
-                                // Detail Screen Route
+                                // Define the route for the DetailScreen with placeId as a parameter
                                 composable(
-                                    route = "details/{place}",
-                                    arguments = listOf(
-                                        navArgument("place") {
-                                            type = NavType.StringType
-                                        }
-                                    )
+                                    route = "details/{placeId}",
+                                    arguments = listOf(navArgument("placeId") {
+                                        type = NavType.StringType
+                                    })
                                 ) { backStackEntry ->
-                                    val placeJson = backStackEntry.arguments?.getString("place")
-                                    val place =
-                                        placeJson?.let { Gson().fromJson(it, Place::class.java) }
-                                    DetailScreen(place = place, navController = navController)
+                                    val placeId = backStackEntry.arguments?.getString("placeId")
+                                    DetailScreen(placeId = placeId, navController = navController)
                                 }
                             }
+
                         }
                     }
                 }
@@ -122,25 +117,22 @@ class MainActivity : ComponentActivity() {
                                             currentLocation = location
                                         )
                                     }
-                                    // Detail Screen Route
+                                    // Define the route for DetailScreen with placeId as a parameter
                                     composable(
-                                        route = "details/{place}",
-                                        arguments = listOf(
-                                            navArgument("place") {
-                                                type = NavType.StringType
-                                            }
-                                        )
+                                        route = "details/{placeId}",
+                                        arguments = listOf(navArgument("placeId") {
+                                            type = NavType.StringType
+                                        })
                                     ) { backStackEntry ->
-                                        val placeJson = backStackEntry.arguments?.getString("place")
-                                        val place = placeJson?.let {
-                                            Gson().fromJson(
-                                                it,
-                                                Place::class.java
-                                            )
-                                        }
-                                        DetailScreen(place = place, navController = navController)
+                                        // Retrieve placeId from navigation arguments
+                                        val placeId = backStackEntry.arguments?.getString("placeId")
+                                        DetailScreen(
+                                            placeId = placeId,
+                                            navController = navController
+                                        )
                                     }
                                 }
+
                             }
                         }
                     }
