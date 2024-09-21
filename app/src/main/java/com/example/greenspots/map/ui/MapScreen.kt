@@ -5,15 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.CameraPositionState
-import androidx.compose.ui.Modifier
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun MapScreen(
@@ -41,7 +42,13 @@ fun MapScreen(
                 state = MarkerState(position = place.location),
                 title = place.name,
                 snippet = place.description.orEmpty(),
-                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+                onClick = {
+                    // Serialize Place object to JSON
+                    val placeJson = Gson().toJson(place)
+                    navController.navigate("details/$placeJson")
+                    true
+                }
             )
         }
     }

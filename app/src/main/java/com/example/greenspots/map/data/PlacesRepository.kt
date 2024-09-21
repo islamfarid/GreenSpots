@@ -4,10 +4,10 @@ import com.example.greenspots.BuildConfig
 import com.example.greenspots.map.model.Place
 import com.example.greenspots.network.RetrofitInstance
 import com.google.android.gms.maps.model.LatLng
+import dagger.Reusable
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@Reusable
 class PlacesRepository @Inject constructor(
 ) {
     private val apiKey: String = BuildConfig.MAPS_API_KEY
