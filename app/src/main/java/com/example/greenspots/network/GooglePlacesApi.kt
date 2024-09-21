@@ -18,4 +18,10 @@ interface GooglePlacesApi {
         @Query("place_id") placeId: String,  // Place ID from previous API response
         @Query("key") apiKey: String
     ): PlaceDetailsResponse
+
+    @GET("place/textsearch/json")
+    suspend fun searchPlaces(
+        @Query("query") query: String,
+        @Query("key") apiKey: String
+    ): PlacesResponse
 }

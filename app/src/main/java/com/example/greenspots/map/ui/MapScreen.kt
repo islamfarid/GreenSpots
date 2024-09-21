@@ -1,6 +1,13 @@
 package com.example.greenspots.map.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -30,24 +37,44 @@ fun MapScreen(
     // Collect the places state as a `State` and access it using `by` delegation
     val places by viewModel.places.collectAsState()
 
-    GoogleMap(
-        cameraPositionState = cameraPositionState,
-        modifier = Modifier.fillMaxSize(),
-        properties = com.google.maps.android.compose.MapProperties(isMyLocationEnabled = true),
-        uiSettings = com.google.maps.android.compose.MapUiSettings(zoomControlsEnabled = true)
-    ) {
-        places.forEach { place ->
-            Marker(
-                state = MarkerState(position = place.location),
-                title = place.name,
-                snippet = place.description.orEmpty(),
-                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
-                onClick = {
-                    navController.navigate("details/${place.id}") // Pass only the placeId
-                    true
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { /* Title of the screen or app */ },
+                actions = {
+                    // Add the search button to the top app bar
+                    IconButton(onClick = {
+                        navController.navigate("search")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search for places"
+                        )
+                    }
                 }
             )
-
+        }
+    ) { innerPadding ->
+        GoogleMap(
+            cameraPositionState = cameraPositionState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            properties = com.google.maps.android.compose.MapProperties(isMyLocationEnabled = true),
+            uiSettings = com.google.maps.android.compose.MapUiSettings(zoomControlsEnabled = true)
+        ) {
+            places.forEach { place ->
+                Marker(
+                    state = MarkerState(position = place.location),
+                    title = place.name,
+                    snippet = place.description.orEmpty(),
+                    icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+                    onClick = {
+                        navController.navigate("details/${place.id}") // Pass only the placeId
+                        true
+                    }
+                )
+            }
         }
     }
 }

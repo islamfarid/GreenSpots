@@ -59,4 +59,29 @@ class PlacesRepository @Inject constructor(
     }
 
 
+    /**
+     * Searches for places based on a query string using the Google Places API.
+     *
+     * @param query The search query (name or location).
+     * @return A list of Place objects.
+     */
+    suspend fun searchPlaces(query: String): List<Place> {
+        val response = RetrofitInstance.api.searchPlaces(
+            query = query,
+            apiKey = apiKey
+        )
+
+        // Map the API response to Place objects
+        return response.results.map { placeResult ->
+            Place(
+                id = placeResult.placeId,  // Use placeId for identification
+                name = placeResult.name,
+                location = LatLng(
+                    placeResult.geometry.location.lat,
+                    placeResult.geometry.location.lng
+                ),
+                description = placeResult.vicinity  // Optional description (vicinity)
+            )
+        }
+    }
 }

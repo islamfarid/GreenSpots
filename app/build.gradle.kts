@@ -90,7 +90,7 @@ dependencies {
     // Material Components for themes and UI components
     implementation("com.google.android.material:material:1.9.0")
     implementation("io.coil-kt:coil-compose:1.4.0")
-
+    implementation("androidx.compose.ui:ui:1.5.4")
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
