@@ -8,6 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,12 +54,22 @@ fun MapScreen(
                         )
                     }
 
+                    // Add the favorites button
                     IconButton(onClick = { navController.navigate("favorites") }) {
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Go to favorites"
                         )
                     }
+
+                    // Add the categories button
+                    IconButton(onClick = { navController.navigate("categories") }) {
+                        Icon(
+                            imageVector = Icons.Default.List,  // Use a predefined icon
+                            contentDescription = "Explore categories"
+                        )
+                    }
+
                 }
             )
         }

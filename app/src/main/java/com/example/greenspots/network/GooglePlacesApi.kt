@@ -8,9 +8,10 @@ interface GooglePlacesApi {
 
     @GET("place/nearbysearch/json")
     suspend fun getNearbyPlaces(
-        @Query("location") location: String,
-        @Query("radius") radius: Int,
-        @Query("key") apiKey: String
+        @Query("location") location: String,  // LatLng as "lat,lng"
+        @Query("radius") radius: Int,         // Search radius in meters
+        @Query("type") type: String = "",     // Category type (e.g., "park", "lake"), default to an empty string
+        @Query("key") apiKey: String          // Your API key
     ): PlacesResponse
 
     @GET("place/details/json")

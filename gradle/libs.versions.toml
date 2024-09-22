@@ -13,6 +13,7 @@ playServicesLocation = "21.0.1"
 kotlinxCoroutines = "1.7.1"
 playServicesMapsVersion = "19.0.0"
 playServicesLocationVersion = "21.3.0"
+litertSupportApi = "1.0.1"
 
 [libraries]
 androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreKtx" }
@@ -32,3 +33,4 @@ kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-corou
 kotlinxCoroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 gmsPlayServicesMaps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMapsVersion" }
 gmsPlayServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocationVersion" }
+litertSupportApi = { group = "com.google.ai.edge.litert", name = "litert-support-api", version.ref = "litertSupportApi" }

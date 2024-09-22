@@ -27,6 +27,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.greenspots.categories.CategoriesScreen
+import com.example.greenspots.categories.CategorySpotsScreen
 import com.example.greenspots.details.DetailScreen
 import com.example.greenspots.favorites.FavoriteScreen
 import com.example.greenspots.map.ui.MapScreen
@@ -118,6 +120,21 @@ class MainActivity : ComponentActivity() {
                         composable("favorites") {
                             FavoriteScreen(navController = navController)
                         }
+
+                        composable("categories") {
+                            CategoriesScreen(navController = navController)
+                        }
+                        composable("category/{categoryId}") { backStackEntry ->
+                            val categoryId = backStackEntry.arguments?.getString("categoryId")
+
+                            CategorySpotsScreen(
+                                categoryId = categoryId ?: "",
+                                currentLocation = location!!,  // Pass the current location here
+                                navController = navController
+                            )
+                        }
+
+
                     }
                 }
             }
