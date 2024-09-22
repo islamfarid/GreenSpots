@@ -9,6 +9,7 @@ data class PlaceDetailsResponse(
 
 
 data class PlaceDetailsResult(
+    @SerializedName("place_id") val id: String,
     @SerializedName("name") val name: String,
     @SerializedName("formatted_address") val address: String?,
     @SerializedName("formatted_phone_number") val phoneNumber: String?,
@@ -16,8 +17,19 @@ data class PlaceDetailsResult(
     @SerializedName("opening_hours") val openingHours: OpeningHours?,
     @SerializedName("rating") val rating: Float?,
     @SerializedName("reviews") val reviews: List<Review>?,
-    @SerializedName("photos") val photos: List<Photo>?
+    @SerializedName("photos") val photos: List<Photo>?,
+    @SerializedName("geometry") val geometry: Geometry?  // Add geometry for location
 )
+
+data class Geometry(
+    @SerializedName("location") val location: Location
+)
+
+data class Location(
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lng") val lng: Double
+)
+
 
 data class OpeningHours(
     @SerializedName("weekday_text") val weekdayText: List<String>

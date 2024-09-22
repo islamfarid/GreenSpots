@@ -7,6 +7,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,6 +50,13 @@ fun MapScreen(
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search for places"
+                        )
+                    }
+
+                    IconButton(onClick = { navController.navigate("favorites") }) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Go to favorites"
                         )
                     }
                 }

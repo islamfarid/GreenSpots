@@ -2,7 +2,7 @@ package com.example.greenspots.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.greenspots.Repository.PlacesRepository
+import com.example.greenspots.CommonRepository.PlacesRepository
 import com.example.greenspots.map.model.Place
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

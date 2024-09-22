@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.greenspots.details.DetailScreen
+import com.example.greenspots.favorites.FavoriteScreen
 import com.example.greenspots.map.ui.MapScreen
 import com.example.greenspots.search.SearchScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
@@ -112,6 +113,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("search") {
                             SearchScreen(navController = navController)
+                        }
+
+                        composable("favorites") {
+                            FavoriteScreen(navController = navController)
                         }
                     }
                 }

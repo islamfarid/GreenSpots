@@ -2,7 +2,7 @@ package com.example.greenspots.map.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.greenspots.Repository.PlacesRepository
+import com.example.greenspots.CommonRepository.PlacesRepository
 import com.example.greenspots.map.model.Place
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel

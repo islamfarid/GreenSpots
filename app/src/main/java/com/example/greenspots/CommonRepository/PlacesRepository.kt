@@ -1,4 +1,4 @@
-package com.example.greenspots.Repository
+package com.example.greenspots.CommonRepository
 
 import android.util.Log
 import com.example.greenspots.BuildConfig

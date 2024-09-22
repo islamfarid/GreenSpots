@@ -21,6 +21,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,12 +34,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.greenspots.BuildConfig
+import com.example.greenspots.map.model.Place
+import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun DetailScreen(
     placeId: String?,
     navController: NavController,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel()  // Use the ViewModel
 ) {
     // Fetch place details when the screen loads
     LaunchedEffect(placeId) {
@@ -45,6 +49,7 @@ fun DetailScreen(
     }
 
     val placeDetails by viewModel.placeDetails.collectAsState()
+    val isFavorite by viewModel.isFavorite.collectAsState()
 
     // If details are not available (still loading), show a loading indicator
     if (placeDetails == null) {
@@ -56,7 +61,6 @@ fun DetailScreen(
         }
     } else {
         placeDetails?.let { details ->
-            // Make the screen scrollable by wrapping the content inside a Column with verticalScroll
             val scrollState = rememberScrollState()
 
             Scaffold(
@@ -70,7 +74,34 @@ fun DetailScreen(
                                     contentDescription = "Back"
                                 )
                             }
+                        },
+                        actions = {
+                            IconButton(
+                                onClick = {
+                                    placeDetails?.let { details ->
+                                        viewModel.toggleFavorite(
+                                            Place(
+                                                id = details.id,
+                                                name = details.name,
+                                                location = LatLng(  // Add location using LatLng from Google Maps
+                                                    details.geometry?.location?.lat
+                                                        ?: 0.0,  // Ensure non-null lat
+                                                    details.geometry?.location?.lng
+                                                        ?: 0.0   // Ensure non-null lng
+                                                ),
+                                                description = details.address
+                                            )
+                                        )
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites"
+                                )
+                            }
                         }
+
                     )
                 }
             ) { innerPadding ->
@@ -79,7 +110,7 @@ fun DetailScreen(
                         .padding(innerPadding)
                         .padding(16.dp)
                         .fillMaxSize()
-                        .verticalScroll(scrollState) // Enable vertical scrolling
+                        .verticalScroll(scrollState)
                 ) {
                     Text(text = details.name, style = MaterialTheme.typography.h4)
                     Text(text = details.address ?: "Address not available")
@@ -108,14 +139,13 @@ fun DetailScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Add a placeholder image if needed here
+                    // Display photos (if available)
                     details.photos?.let { photos ->
                         val photoUrls = photos.map { photo ->
                             "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=${BuildConfig.MAPS_API_KEY}"
                         }
                         DisplayPhotos(photoUrls)
                     }
-
                 }
             }
         }
@@ -136,5 +166,3 @@ fun DisplayPhotos(photoUrls: List<String>) {
         }
     }
 }
-
-
