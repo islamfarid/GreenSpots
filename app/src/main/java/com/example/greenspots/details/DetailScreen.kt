@@ -1,5 +1,6 @@
 package com.example.greenspots.details
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,12 +24,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -43,6 +46,9 @@ fun DetailScreen(
     navController: NavController,
     viewModel: DetailViewModel = hiltViewModel()  // Use the ViewModel
 ) {
+    // Context to use for the sharing functionality
+    val context = LocalContext.current
+
     // Fetch place details when the screen loads
     LaunchedEffect(placeId) {
         placeId?.let { viewModel.fetchPlaceDetails(it) }
@@ -100,8 +106,25 @@ fun DetailScreen(
                                     contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites"
                                 )
                             }
+                            // Add share button for sharing place details
+                            IconButton(
+                                onClick = {
+                                    // Create the share intent to share place details
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_SUBJECT, "Check out this place!")
+                                        putExtra(Intent.EXTRA_TEXT, """
+                                            Check out ${details.name} at ${details.address}.
+                                            You can call them at ${details.phoneNumber ?: "N/A"}.
+                                            Visit their website: ${details.website ?: "N/A"}
+                                        """.trimIndent())
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, "Share via"))
+                                }
+                            ) {
+                                Icon(imageVector = Icons.Default.Share, contentDescription = "Share place details")
+                            }
                         }
-
                     )
                 }
             ) { innerPadding ->
