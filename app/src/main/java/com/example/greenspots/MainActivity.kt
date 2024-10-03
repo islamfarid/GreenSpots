@@ -128,7 +128,7 @@ class MainActivity : ComponentActivity() {
                             val categoryId = backStackEntry.arguments?.getString("categoryId")
 
                             CategorySpotsScreen(
-                                categoryId = categoryId ?: "",
+                                categoryId = categoryId ?: "Park",
                                 currentLocation = location!!,  // Pass the current location here
                                 navController = navController
                             )

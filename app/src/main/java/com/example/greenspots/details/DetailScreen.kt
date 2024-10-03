@@ -1,6 +1,7 @@
 package com.example.greenspots.details
 
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -44,9 +46,9 @@ import com.google.android.gms.maps.model.LatLng
 fun DetailScreen(
     placeId: String?,
     navController: NavController,
-    viewModel: DetailViewModel = hiltViewModel()  // Use the ViewModel
+    viewModel: DetailViewModel = hiltViewModel()
 ) {
-    // Context to use for the sharing functionality
+    // Context to use for the sharing functionality and opening Google Maps/Browser
     val context = LocalContext.current
 
     // Fetch place details when the screen loads
@@ -89,11 +91,9 @@ fun DetailScreen(
                                             Place(
                                                 id = details.id,
                                                 name = details.name,
-                                                location = LatLng(  // Add location using LatLng from Google Maps
-                                                    details.geometry?.location?.lat
-                                                        ?: 0.0,  // Ensure non-null lat
-                                                    details.geometry?.location?.lng
-                                                        ?: 0.0   // Ensure non-null lng
+                                                location = LatLng(
+                                                    details.geometry?.location?.lat ?: 0.0,
+                                                    details.geometry?.location?.lng ?: 0.0
                                                 ),
                                                 description = details.address
                                             )
@@ -109,7 +109,6 @@ fun DetailScreen(
                             // Add share button for sharing place details
                             IconButton(
                                 onClick = {
-                                    // Create the share intent to share place details
                                     val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                         type = "text/plain"
                                         putExtra(Intent.EXTRA_SUBJECT, "Check out this place!")
@@ -169,6 +168,23 @@ fun DetailScreen(
                         }
                         DisplayPhotos(photoUrls)
                     }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Button to open Google Maps/Chrome review page
+                    placeDetails?.let {
+                        Button(onClick = {
+                            // Build the URL to search for the place in Google Maps using its name or address
+                            val searchQuery = Uri.encode("${it.name} ${it.address}")
+                            val mapUrl =
+                                "https://www.google.com/maps/search/?api=1&query=$searchQuery"
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapUrl))
+                            context.startActivity(intent)
+                        }) {
+                            Text("Write a Review on Google")
+                        }
+                    }
+
                 }
             }
         }
