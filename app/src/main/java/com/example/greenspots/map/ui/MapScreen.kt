@@ -15,9 +15,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.greenspots.map.model.Place
+import com.example.greenspots.R
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
@@ -70,6 +71,16 @@ fun MapScreen(
                         Icon(
                             imageVector = Icons.Default.List,
                             contentDescription = "Explore categories"
+                        )
+                    }
+
+                    // Add the recommendations button
+                    IconButton(onClick = {
+                        navController.navigate("recommendations")
+                    }) {
+                        Icon(
+                            painterResource(id = R.drawable.recommend),  // You can use a better icon here
+                            contentDescription = "Recommendations"
                         )
                     }
                 }

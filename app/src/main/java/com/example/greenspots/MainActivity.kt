@@ -134,6 +134,7 @@ class MainActivity : ComponentActivity() {
                                 navController = navController
                             )
                         }
+                        // Add the RecommendationsScreen route
                         composable("recommendations") {
                             RecommendationsScreen(
                                 lat = location?.latitude ?: 0.0,
