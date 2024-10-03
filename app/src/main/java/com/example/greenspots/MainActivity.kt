@@ -32,6 +32,7 @@ import com.example.greenspots.categories.CategorySpotsScreen
 import com.example.greenspots.details.DetailScreen
 import com.example.greenspots.favorites.FavoriteScreen
 import com.example.greenspots.map.ui.MapScreen
+import com.example.greenspots.recommendations.RecommendationsScreen
 import com.example.greenspots.search.SearchScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -133,7 +134,13 @@ class MainActivity : ComponentActivity() {
                                 navController = navController
                             )
                         }
-
+                        composable("recommendations") {
+                            RecommendationsScreen(
+                                lat = location?.latitude ?: 0.0,
+                                lng = location?.longitude ?: 0.0,
+                                navController = navController
+                            )
+                        }
 
                     }
                 }

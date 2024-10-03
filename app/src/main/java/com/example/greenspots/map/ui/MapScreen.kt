@@ -17,10 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.greenspots.map.model.Place
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 
@@ -29,14 +32,14 @@ fun MapScreen(
     navController: NavController,
     cameraPositionState: CameraPositionState,
     currentLocation: LatLng,  // Current location passed here
-    viewModel: MapViewModel = hiltViewModel()
+    viewModel: MapViewModel = hiltViewModel()  // Get the ViewModel using Hilt
 ) {
     // Trigger fetching of nearby places when the location changes
     LaunchedEffect(key1 = currentLocation) {
         viewModel.fetchNearbyPlaces(currentLocation)
     }
 
-    // Collect the places state as a `State` and access it using `by` delegation
+    // Collect the places state from ViewModel
     val places by viewModel.places.collectAsState()
 
     Scaffold(
@@ -65,11 +68,10 @@ fun MapScreen(
                     // Add the categories button
                     IconButton(onClick = { navController.navigate("categories") }) {
                         Icon(
-                            imageVector = Icons.Default.List,  // Use a predefined icon
+                            imageVector = Icons.Default.List,
                             contentDescription = "Explore categories"
                         )
                     }
-
                 }
             )
         }
@@ -79,9 +81,10 @@ fun MapScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            properties = com.google.maps.android.compose.MapProperties(isMyLocationEnabled = true),
-            uiSettings = com.google.maps.android.compose.MapUiSettings(zoomControlsEnabled = true)
+            properties = MapProperties(isMyLocationEnabled = true),
+            uiSettings = MapUiSettings(zoomControlsEnabled = true)
         ) {
+            // Display markers for each place
             places.forEach { place ->
                 Marker(
                     state = MarkerState(position = place.location),

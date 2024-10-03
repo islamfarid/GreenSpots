@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.greenspots.BuildConfig
 import com.example.greenspots.details.model.PlaceDetailsResult
 import com.example.greenspots.map.model.Place
+import com.example.greenspots.network.PlaceResult
 import com.example.greenspots.network.RetrofitInstance
 import com.google.android.gms.maps.model.LatLng
 import dagger.Reusable
@@ -83,5 +84,16 @@ class PlacesRepository @Inject constructor(
                 description = placeResult.vicinity  // Optional description (vicinity)
             )
         }
+    }
+
+    suspend fun getNearbyPlaces(lat: Double, lng: Double, radius: Int = 1000, type: String = "park"): List<PlaceResult> {
+        val location = "$lat,$lng"
+        val response = RetrofitInstance.api.getNearbyPlaces(
+            location,
+            radius,
+            type,
+            apiKey,
+        )
+        return response.results // Assuming `results` is a list of places
     }
 }
