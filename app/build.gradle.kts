@@ -71,7 +71,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.android.libraries.places:places:2.6.0")
-
+    implementation("com.google.android.gms:play-services-location:21.0.1")
     // Hilt for Dependency Injection
     implementation("com.google.dagger:hilt-android:2.47")
     kapt("com.google.dagger:hilt-android-compiler:2.47")
@@ -84,6 +84,7 @@ dependencies {
     // Retrofit for API Calls
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.coil-kt:coil-compose:2.1.0")
 
     // Material Components for themes and UI components
     implementation("com.google.android.material:material:1.9.0")

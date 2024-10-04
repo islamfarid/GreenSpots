@@ -2,23 +2,27 @@ package com.example.greenspots.map.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.greenspots.R
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
@@ -43,15 +47,16 @@ fun MapScreen(
     // Collect the places state from ViewModel
     val places by viewModel.places.collectAsState()
 
+    // State to manage the visibility of the dropdown menu
+    var expanded by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { /* Title of the screen or app */ },
                 actions = {
                     // Add the search button to the top app bar
-                    IconButton(onClick = {
-                        navController.navigate("search")
-                    }) {
+                    IconButton(onClick = { navController.navigate("search") }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search for places"
@@ -66,22 +71,32 @@ fun MapScreen(
                         )
                     }
 
-                    // Add the categories button
-                    IconButton(onClick = { navController.navigate("categories") }) {
+
+                    // Overflow Menu (3 dots)
+                    IconButton(onClick = { expanded = true }) {
                         Icon(
-                            imageVector = Icons.Default.List,
-                            contentDescription = "Explore categories"
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "Menu"
                         )
                     }
 
-                    // Add the recommendations button
-                    IconButton(onClick = {
-                        navController.navigate("recommendations")
-                    }) {
-                        Icon(
-                            painterResource(id = R.drawable.recommend),  // You can use a better icon here
-                            contentDescription = "Recommendations"
-                        )
+                    // Dropdown Menu
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(onClick = {
+                            navController.navigate("recommendations")
+                            expanded = false
+                        }) {
+                            Text("Recommendations")
+                        }
+                        DropdownMenuItem(onClick = {
+                            navController.navigate("categories")
+                            expanded = false
+                        }) {
+                            Text("Explore Categories")
+                        }
                     }
                 }
             )

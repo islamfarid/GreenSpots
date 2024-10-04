@@ -32,6 +32,7 @@ import com.example.greenspots.categories.CategorySpotsScreen
 import com.example.greenspots.details.DetailScreen
 import com.example.greenspots.favorites.FavoriteScreen
 import com.example.greenspots.map.ui.MapScreen
+import com.example.greenspots.plantandanimalspieces.ViewPlantAndAnimalSpeciesScreen
 import com.example.greenspots.recommendations.RecommendationsScreen
 import com.example.greenspots.search.SearchScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
@@ -142,6 +143,17 @@ class MainActivity : ComponentActivity() {
                                 navController = navController
                             )
                         }
+
+                        composable("viewPlantAndAnimalSpecies/{placeId}") { backStackEntry ->
+                            val placeId = backStackEntry.arguments?.getString("placeId")
+                            placeId?.let {
+                                ViewPlantAndAnimalSpeciesScreen(
+                                    navController = navController,
+                                    placeId = it
+                                )
+                            }
+                        }
+
 
                     }
                 }

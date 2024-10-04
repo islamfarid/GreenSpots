@@ -161,7 +161,6 @@ fun DetailScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Display photos (if available)
                     details.photos?.let { photos ->
                         val photoUrls = photos.map { photo ->
                             "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=${BuildConfig.MAPS_API_KEY}"
@@ -174,7 +173,6 @@ fun DetailScreen(
                     // Button to open Google Maps/Chrome review page
                     placeDetails?.let {
                         Button(onClick = {
-                            // Build the URL to search for the place in Google Maps using its name or address
                             val searchQuery = Uri.encode("${it.name} ${it.address}")
                             val mapUrl =
                                 "https://www.google.com/maps/search/?api=1&query=$searchQuery"
@@ -185,6 +183,17 @@ fun DetailScreen(
                         }
                     }
 
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // New button to navigate to ViewPlantAndAnimalSpeciesScreen
+                    Button(
+                        onClick = {
+                            // Navigate to the Plant and Animal Species screen, passing the placeId
+                            navController.navigate("viewPlantAndAnimalSpecies/${placeId}")
+                        }
+                    ) {
+                        Text(text = "View Plant & Animal Species")
+                    }
                 }
             }
         }
