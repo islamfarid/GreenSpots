@@ -194,6 +194,16 @@ fun DetailScreen(
                     ) {
                         Text(text = "View Plant & Animal Species")
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = {
+                            placeId?.let {
+                                navController.navigate("viewUpcomingEvents/$it")
+                            }
+                        }
+                    ) {
+                        Text(text = "View Upcoming Events")
+                    }
                 }
             }
         }

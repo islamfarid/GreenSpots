@@ -36,6 +36,7 @@ import com.example.greenspots.plantandanimalspieces.ViewPlantAndAnimalSpeciesScr
 import com.example.greenspots.recommendations.RecommendationsScreen
 import com.example.greenspots.search.SearchScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
+import com.example.greenspots.viewupcomingevents.ViewUpcomingEventsScreen
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
@@ -154,7 +155,15 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-
+                        composable("viewUpcomingEvents/{placeId}") { backStackEntry ->
+                            val placeId = backStackEntry.arguments?.getString("placeId")
+                            placeId?.let {
+                                ViewUpcomingEventsScreen(
+                                    navController = navController,
+                                    currentLocation = location!!
+                                )
+                            }
+                        }
                     }
                 }
             }
