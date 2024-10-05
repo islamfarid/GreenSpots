@@ -1,5 +1,6 @@
 package com.example.greenspots.viewupcomingevents
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -22,6 +23,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.greenspots.R
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -55,13 +59,22 @@ fun ViewUpcomingEventsScreen(
         ) {
             itemsIndexed(events) { index, event ->
                 ListItem(
-                    text = { Text(event.name) },
-                    secondaryText = { Text(event.dates.start.localDate) },
+                    text = { Text(event.name ?: "No Name Available") },
+                    secondaryText = { Text(event.dates?.start?.localDate ?: "No Date Available") },
                     icon = {
                         Icon(
                             painter = painterResource(id = R.drawable.event),
                             contentDescription = null
                         )
+                    },
+                    modifier = Modifier.clickable {
+
+                        val eventJson = Gson().toJson(event)
+                        val encodedEventJson =
+                            URLEncoder.encode(eventJson, StandardCharsets.UTF_8.toString())
+                        navController.navigate("eventDetails/$encodedEventJson")
+
+
                     }
                 )
             }

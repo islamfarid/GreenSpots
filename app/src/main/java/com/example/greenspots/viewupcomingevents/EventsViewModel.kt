@@ -10,18 +10,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EventsViewModel @Inject constructor(private val eventsRepository: EventsRepository) :
-    ViewModel() {
+class EventsViewModel @Inject constructor(private val eventsRepository: EventsRepository) : ViewModel() {
 
     private val _events = MutableStateFlow<List<Event>>(emptyList())
     val events: StateFlow<List<Event>> = _events
 
     fun loadEventsForLocation(currentLocation: LatLng) {
         viewModelScope.launch {
-            val events = eventsRepository.fetchEventsByLocation(
-                currentLocation.latitude,
-                currentLocation.longitude
-            )
+            val events = eventsRepository.fetchEventsByLocation(currentLocation.latitude, currentLocation.longitude)
             _events.value = events
         }
     }

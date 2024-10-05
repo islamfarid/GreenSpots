@@ -37,6 +37,7 @@ import com.example.greenspots.recommendations.RecommendationsScreen
 import com.example.greenspots.search.SearchScreen
 import com.example.greenspots.ui.theme.GreenSpotsTheme
 import com.example.greenspots.viewupcomingevents.ViewUpcomingEventsScreen
+import com.example.greenspots.viewupcomingevents.details.EventDetailsScreen
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
@@ -163,6 +164,14 @@ class MainActivity : ComponentActivity() {
                                     currentLocation = location!!
                                 )
                             }
+                        }
+
+                        composable(
+                            route = "eventDetails/{eventJson}",
+                            arguments = listOf(navArgument("eventJson") { type = NavType.StringType })
+                        ) { backStackEntry ->
+                            val eventJson = backStackEntry.arguments?.getString("eventJson") ?: return@composable
+                            EventDetailsScreen(navController = navController, eventJson = eventJson)
                         }
                     }
                 }
