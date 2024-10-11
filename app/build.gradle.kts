@@ -12,8 +12,10 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "MAPS_API_KEY", "\"YOUR_MAPS_API_KEY\"")
-        manifestPlaceholders["MAPS_API_KEY"] = "YOUR_MAPS_API_KEY"
+        buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU\"")
+        manifestPlaceholders["MAPS_API_KEY"] = "AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU"
+        buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU\"")
+        manifestPlaceholders["MAPS_API_KEY"] = "AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU"
         applicationId = "com.example.greenspots"
         minSdk = 24
         targetSdk = 34
