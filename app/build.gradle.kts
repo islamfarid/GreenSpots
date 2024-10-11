@@ -1,19 +1,19 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "1.9.10"
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.example.greenspots"  // Replace with your app's actual package name
+    namespace = "com.example.greenspots"
 
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "MAPS_API_KEY", "\"AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU\"")
-        manifestPlaceholders["MAPS_API_KEY"] = "AIzaSyAVdCMmfDYwkuRNwd5lkhnCQEN2jfBFFpU"
+        buildConfigField("String", "MAPS_API_KEY", "\"YOUR_MAPS_API_KEY\"")
+        manifestPlaceholders["MAPS_API_KEY"] = "YOUR_MAPS_API_KEY"
         applicationId = "com.example.greenspots"
         minSdk = 24
         targetSdk = 34
@@ -23,19 +23,16 @@ android {
     }
 
     compileOptions {
-        // Use Java 17 compatibility
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        // Ensure that the Kotlin compiler targets JVM 17
         jvmTarget = "17"
     }
 
     java {
         toolchain {
-            // Specify the Java toolchain to use version 17
             languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
@@ -46,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
+        kotlinCompilerExtensionVersion = "1.5.3" // Compatible with Kotlin 1.9.10
     }
 
     packagingOptions {
@@ -71,7 +68,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.android.libraries.places:places:2.6.0")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+
     // Hilt for Dependency Injection
     implementation("com.google.dagger:hilt-android:2.47")
     kapt("com.google.dagger:hilt-android-compiler:2.47")
@@ -100,6 +97,9 @@ dependencies {
     kaptTest("com.google.dagger:hilt-android-compiler:2.47")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.47")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.47")
+
+    // Kotlin Standard Library
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
 }
 
 kapt {
